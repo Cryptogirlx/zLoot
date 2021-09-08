@@ -23,7 +23,7 @@ This application uses
 
 ## Faucets
 
-[title](https://faucet.polygon.technology/)
+- [Mumbai Testnet MATIC](https://faucet.polygon.technology/)
 
 ## Future Improvements
 
