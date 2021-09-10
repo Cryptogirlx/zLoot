@@ -2,14 +2,14 @@
 
 zLoot is a collection limited to 10 000 unique NFts part of an expendable RPG universe.
 Users can only mint one NFT per account.
-Each loot bag contains items: a piece for an adventurer's head armor,ring,companion,special power and weapon.
+Each loot bag contains items: a piece for an adventurer's companion,special power,hand armor,ring, and weapon.
 The game includes a zGLD ERC20 token that represents Gold.
 If a user owns a zLOOT NFT, they are eligible claim 10 000 zGLD one time.
 
 ## Contracts
 
 - zLoot NFT
-- zGold Token
+- zGold ERC20 Token
 
 ## Technology stack
 
