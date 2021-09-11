@@ -367,14 +367,21 @@ contract ZLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         return output;
     }
 
-    function claim(uint256 tokenId) public nonReentrant {
-        require(tokenId > 0 && tokenId < 7778, "Token ID invalid");
-        _safeMint(_msgSender(), tokenId);
-    }
+    function claim(uint256 tokenId) public payable virtual nonReentrant {
+        // address can only mint one time
+        require(
+            balanceOf(msg.sender) == 0,
+            "Each address may only clain one token"
+        );
+        //limited amount of tokens
+        require(tokenId < 7778, "All tokens minted");
+        // set NFT price
+        require(
+            msg.value >= 1000000000000000000,
+            "Not enough ETH sent; check price!"
+        );
 
-    function ownerClaim(uint256 tokenId) public nonReentrant onlyOwner {
-        require(tokenId > 7777 && tokenId < 8001, "Token ID invalid");
-        _safeMint(owner(), tokenId);
+        _safeMint(_msgSender(), tokenId);
     }
 
     function toString(uint256 value) internal pure returns (string memory) {

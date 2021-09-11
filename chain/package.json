@@ -33,6 +33,8 @@
   "scripts": {
     "chain": "hardhat node",
     "test:chain": "hardhat test",
+    "test:zloot": "hardhat test test/2_zLoot.test.ts ",
+    "test:nft": "hardhat test test/1_NftBasics.test.ts ",
     "compile": "hardhat compile",
     "deploy": "hardhat run scripts/deploy.ts",
     "accounts": "hardhat accounts",
