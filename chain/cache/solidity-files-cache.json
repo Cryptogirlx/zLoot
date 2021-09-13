@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/cryptogirl/LinumLabs/zLoot/chain/contracts/ZGold.sol": {
-      "lastModificationDate": 1631391987162,
-      "contentHash": "33c8375666e02130927495a1bdb5cc09",
+      "lastModificationDate": 1631545191030,
+      "contentHash": "0dac0890d073bc0f490064c05e20d978",
       "sourceName": "contracts/ZGold.sol",
       "solcConfig": {
         "version": "0.8.0",
@@ -28,7 +28,10 @@
         }
       },
       "imports": [
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol"
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "@openzeppelin/contracts/utils/Context.sol",
+        "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol"
       ],
       "versionPragmas": [
         "0.8.0"
@@ -571,6 +574,80 @@
       ],
       "artifacts": [
         "IERC20"
+      ]
+    },
+    "/Users/cryptogirl/LinumLabs/zLoot/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol": {
+      "lastModificationDate": 1631023939833,
+      "contentHash": "2cd550cedf51b8d294607dad5023d717",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IERC20.sol",
+        "./extensions/IERC20Metadata.sol",
+        "../../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC20"
+      ]
+    },
+    "/Users/cryptogirl/LinumLabs/zLoot/node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol": {
+      "lastModificationDate": 1631023939859,
+      "contentHash": "aa1be06992a99bb7393b26a6af3c4dfb",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../IERC20.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC20Metadata"
       ]
     }
   }
