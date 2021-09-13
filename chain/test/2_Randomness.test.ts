@@ -31,11 +31,6 @@ describe("Deployment", () => {
     })
 
 
-    
-
-
-
-
     describe("Randomness", () => {
 
         it('gives a companion after every claim', async () => {

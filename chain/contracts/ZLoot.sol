@@ -379,7 +379,10 @@ contract ZLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
             "Each address may only claim one token"
         );
         //limited amount of tokens
-        require(tokenId < 7778, "All tokens minted");
+        require(
+            tokenId < 600,
+            "No more tokens available,all tokens are minted"
+        );
         //set NFT price
         require(
             msg.value >= 1000000000000000000,

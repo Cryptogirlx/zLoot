@@ -5,6 +5,6 @@ export const constants = {
     NFT: {
         tokenId1: 1,
         tokenId2:2,
-        totalSupply:10000
+        maxSupply:600,
     }
 }

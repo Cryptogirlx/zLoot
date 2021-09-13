@@ -32,28 +32,66 @@ describe("Deployment", () => {
 
     describe("claimng", () => {
 
-        it('reverts if user is trying to claims more tokens than limit', async () => {
-           
-        });
-        it.only('reverts if price sent is under limit', async () => {
-            await ZLootInstance.claim(
-                constants.NFT.tokenId1
+        it('reverts if address is trying to claim more than one token ', async () => {
+            await ZLootInstance.connect(owner).claim(
+                constants.NFT.tokenId1,
+                ethers.utils.parseUnits("1", "ether"),
+                 {
+                     value: ethers.utils.parseUnits("1", "ether")
+                 }
                );
-               await expect(
-                 ZLootInstance.connect(alice).transfer(ownerAddress,aliceAddress, 1)
-               ).to.be.revertedWith("Not enough ETH sent; check price!");
-             });
+               await expect( ZLootInstance.connect(owner).claim(
+                constants.NFT.tokenId2,
+                ethers.utils.parseUnits("1", "ether"),
+                 {
+                     value: ethers.utils.parseUnits("1", "ether")
+                 }
+               )).to.be.revertedWith("Each address may only claim one token")
+         
+        });
+        it('reverts if price sent is under limit', async () => {
+       
+               await expect( ZLootInstance.connect(owner).claim(
+                constants.NFT.tokenId2,
+                ethers.utils.parseUnits("0.1", "ether"),
+                 {
+                     value: ethers.utils.parseUnits("0.1", "ether")
+                 }
+               )).to.be.revertedWith("Not enough ETH sent; check price!")
         });
 
-        it('one account can own only one token', async () => {
-            
-        })
-        it('total supply of tokens cannot be more than X', async () => {
+        it('total supply of tokens cannot be more than 600', async () => {
+            await expect( ZLootInstance.connect(owner).claim(
+                601,
+                ethers.utils.parseUnits("1", "ether"),
+                 {
+                     value: ethers.utils.parseUnits("1", "ether")
+                 }
+               )).to.be.revertedWith("No more tokens available,all tokens are minted")
+         
         
         });
 
-        it('', async () => {
-        
+        it('each address can only claim a different token', async () => {
+            await ZLootInstance.connect(owner).claim(
+                constants.NFT.tokenId1,
+                ethers.utils.parseUnits("1", "ether"),
+                 {
+                     value: ethers.utils.parseUnits("1", "ether")
+                 }
+               );
+               await ZLootInstance.connect(alice).claim(
+                constants.NFT.tokenId2,
+                ethers.utils.parseUnits("1", "ether"),
+                 {
+                     value: ethers.utils.parseUnits("1", "ether")
+                 }
+               );
+
+            expect(   await ZLootInstance.ownerOf(constants.NFT.tokenId1)).to.equal(ownerAddress);
+              expect( await ZLootInstance.ownerOf(constants.NFT.tokenId2)).to.equal(aliceAddress);
+
         });
 
     })
+})
