@@ -38,58 +38,86 @@ describe("Deployment", () => {
 
     describe("Randomness", () => {
 
-        it('gives random companion after every claim', async () => {
-            await ZLootInstance.claim(
-                constants.NFT.tokenId1
+        it('gives a companion after every claim', async () => {
+            let actualResult 
+            await ZLootInstance.connect(owner).claim(
+                constants.NFT.tokenId1,
+                ethers.utils.parseUnits("1", "ether"),
+                 {
+                     value: ethers.utils.parseUnits("1", "ether")
+                 }
                );
+               actualResult=  await ZLootInstance.getCompanion(constants.NFT.tokenId1)
+               console.log("companion",actualResult)
+               // expectedResult = await companionByTokenId 
+
+           // await expect(ZLootInstance.getCompanion(constants.NFT.tokenId1).to.equal(expectedResult));
         });
-        it('gives random special power after every claim', async () => {
-            await ZLootInstance.claim(
-                constants.NFT.tokenId1
+        it('gives a special power after every claim', async () => {
+            let actualResult 
+            await ZLootInstance.connect(owner).claim(
+                constants.NFT.tokenId1,
+                ethers.utils.parseUnits("1", "ether"),
+                 {
+                     value: ethers.utils.parseUnits("1", "ether")
+                 }
                );
+               actualResult=  await ZLootInstance.getPower(constants.NFT.tokenId1)
+               console.log("power",actualResult)
+               // expectedResult = await powerByTokenId 
+
+           // await expect(ZLootInstance.getPower(constants.NFT.tokenId1).to.equal(expectedResult));
         });
 
-        it('gives random weapon after every claim', async () => {
-            await ZLootInstance.claim(
-                constants.NFT.tokenId1
+        it('gives a weapon after every claim', async () => {
+            let actualResult 
+            await ZLootInstance.connect(owner).claim(
+                constants.NFT.tokenId1,
+                ethers.utils.parseUnits("1", "ether"),
+                 {
+                     value: ethers.utils.parseUnits("1", "ether")
+                 }
                );
+               actualResult=  await ZLootInstance.getWeapon(constants.NFT.tokenId1)
+               console.log("weapon",actualResult)
+               // expectedResult = await weaponByTokenId 
+
+           // await expect(ZLootInstance.getWeapon(constants.NFT.tokenId1).to.equal(expectedResult));
         })
-        it('gives random hand armor after every claim', async () => {
-            await ZLootInstance.claim(
-                constants.NFT.tokenId1
+        it('gives a hand armor after every claim', async () => {
+            let actualResult 
+            await ZLootInstance.connect(owner).claim(
+                constants.NFT.tokenId1,
+                ethers.utils.parseUnits("1", "ether"),
+                 {
+                     value: ethers.utils.parseUnits("1", "ether")
+                 }
                );
+                  actualResult=  await ZLootInstance.getHand(constants.NFT.tokenId1)
+           console.log("hand",actualResult)
+
+           // expectedResult = await handByTokenId 
+
+           // await expect(ZLootInstance.getHand(constants.NFT.tokenId1).to.equal(expectedResult));
         });
 
-        it('gives random ring after every claim', async () => {
-            await ZLootInstance.claim(
-                constants.NFT.tokenId1
+        it('gives a ring after every claim', async () => {
+
+            let actualResult 
+            await ZLootInstance.connect(owner).claim(
+                constants.NFT.tokenId1,
+                ethers.utils.parseUnits("1", "ether"),
+                 {
+                     value: ethers.utils.parseUnits("1", "ether")
+                 }
                );
+           actualResult=  await ZLootInstance.getRing(constants.NFT.tokenId1)
+           console.log("ring",actualResult)
+           // expectedResult = await ringByTokenId 
+
+           // await expect(ZLootInstance.getRing(constants.NFT.tokenId1).to.equal(expectedResult));
         });
 
     })
 })
 
-
-
-
-    // describe("claing", () => {
-
-    //     it('reverts if user is trying to clai more tokens than limit', async () => {
-           
-    //     });
-    //     it('reverts if price sent is under limit', async () => {
-            
-    //     });
-
-    //     it('', async () => {
-            
-    //     })
-    //     it('', async () => {
-        
-    //     });
-
-    //     it('', async () => {
-        
-    //     });
-
-    // })
