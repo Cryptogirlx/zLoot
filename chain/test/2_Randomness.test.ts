@@ -2,7 +2,7 @@ const { expect } = require("chai");
 const { ethers } = require('hardhat');
 const hre = require("hardhat");
 import { BigNumber, Contract, Signer } from "ethers";
-// import { constants } from '../utils/TestConstants';
+import { constants } from './utils/Constants';
 
 describe("Deployment", () => {
 
@@ -34,29 +34,44 @@ describe("Deployment", () => {
     
 
 
-})
+
 
     describe("Randomness", () => {
 
         it('gives random companion after every claim', async () => {
-           
+            await ZLootInstance.claim(
+                constants.NFT.tokenId1
+               );
         });
         it('gives random special power after every claim', async () => {
-            
+            await ZLootInstance.claim(
+                constants.NFT.tokenId1
+               );
         });
 
         it('gives random weapon after every claim', async () => {
-            
+            await ZLootInstance.claim(
+                constants.NFT.tokenId1
+               );
         })
         it('gives random hand armor after every claim', async () => {
-        
+            await ZLootInstance.claim(
+                constants.NFT.tokenId1
+               );
         });
 
         it('gives random ring after every claim', async () => {
-        
+            await ZLootInstance.claim(
+                constants.NFT.tokenId1
+               );
         });
 
     })
+})
+
+
+
+
     // describe("claing", () => {
 
     //     it('reverts if user is trying to clai more tokens than limit', async () => {

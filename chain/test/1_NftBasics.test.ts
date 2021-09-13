@@ -31,7 +31,7 @@ describe("Deployment", () => {
     })
 
 
-    describe("View functions", async () => {
+    describe("Token Basics", async () => {
         it("returns name properly", async () => {
       
          expect(await ZLootInstance.name()).to.equal('zLoot');
@@ -43,9 +43,13 @@ describe("Deployment", () => {
 
     
         it("ownerOf returns the owner's address", async () => {
-          await ZLootInstance.claim(
-           constants.NFT.tokenId1
-          );
+          await ZLootInstance.connect(owner).claim(
+            constants.NFT.tokenId1,
+            ethers.utils.parseUnits("1", "ether"),
+             {
+                 value: ethers.utils.parseUnits("1", "ether")
+             }
+           );
           expect(await ZLootInstance.ownerOf(constants.NFT.tokenId1)).to.equal(ownerAddress);
         });
     
@@ -56,9 +60,13 @@ describe("Deployment", () => {
     
         it("balanceOf returns balance of address on contract",async () => {
         
-          await ZLootInstance.claim(
-            constants.NFT.tokenId1
-          );
+          await ZLootInstance.connect(owner).claim(
+            constants.NFT.tokenId1,
+            ethers.utils.parseUnits("1", "ether"),
+             {
+                 value: ethers.utils.parseUnits("1", "ether")
+             }
+           );
           expect(await ZLootInstance.balanceOf(ownerAddress)).to.equal(BigNumber.from("1"))
         });
         
@@ -74,88 +82,107 @@ describe("Deployment", () => {
 
          
 
-    describe("Transactions", async () => {
 
       it("transfer should revert transfer if item is not owned by account", async () => {
-        await ZLootInstance.claim(
-         constants.NFT.tokenId1
-        );
+        await ZLootInstance.connect(owner).claim(
+          constants.NFT.tokenId1,
+          ethers.utils.parseUnits("1", "ether"),
+           {
+               value: ethers.utils.parseUnits("1", "ether")
+           }
+         );
         await expect(
-          ZGldInstance.connect(alice).transfer(ownerAddress,aliceAddress, 1)
+          ZLootInstance.connect(alice).transfer(ownerAddress,aliceAddress, 1)
         ).to.be.revertedWith("transfer caller is not owner nor approved");
       });
-})
+
         it("transfer should revert transfer if item is not owned by account", async () => {
         
-        await ZLootInstance.claim(
-         constants.NFT.tokenId1
-        );
+          await ZLootInstance.connect(owner).claim(
+            constants.NFT.tokenId1,
+            ethers.utils.parseUnits("1", "ether"),
+             {
+                 value: ethers.utils.parseUnits("1", "ether")
+             }
+           );
           await expect(
-            ZGldInstance.connect(alice).transfer(ownerAddress,aliceAddress, 1)
+            ZLootInstance.connect(alice).transfer(ownerAddress,aliceAddress, 1)
           ).to.be.revertedWith("transfer caller is not owner nor approved");
         });
     
         it("transfer reverts when givenconstants.NFT.tokenId1does not exist", async () => {
+          await ZLootInstance.connect(owner).claim(
+            constants.NFT.tokenId1,
+            ethers.utils.parseUnits("1", "ether"),
+             {
+                 value: ethers.utils.parseUnits("1", "ether")
+             }
+           );
           await expect(
-            ZGldInstance.connect(alice).transfer(aliceAddress, ownerAddress, 2)
+            ZLootInstance.connect(alice).transfer(aliceAddress, ownerAddress, 2)
           ).to.be.revertedWith("operator query for nonexistent token");
         });
     
-        it.only("transfer should transfer nft between different accounts", async () => {
-          const recipient = (await ethers.getSigners())[2];
-          const recipientAddress = await recipient.getAddress();
+        it("transfer should transfer nft between different accounts", async () => {
 
-          const params = [{
-            from: ownerAddress,
-            to: ZLootInstance.address,
-            value: ethers.utils.parseEther("1")
-    }];
-    
-    const transactionHash =   await ethers.provider.send('eth_sendTransaction', params);
-    console.log("tx hash",transactionHash)
-
-          await ZLootInstance.claim(
-           constants.NFT.tokenId1
+          await ZLootInstance.connect(owner).claim(
+           constants.NFT.tokenId1,
+           ethers.utils.parseUnits("1", "ether"),
+            {
+                value: ethers.utils.parseUnits("1", "ether")
+            }
           );
-          await ZGldInstance.connect(owner).transfer(ownerAddress,aliceAddress, constants.NFT.tokenId1);
+          await ZLootInstance.connect(owner).transfer(ownerAddress,aliceAddress, constants.NFT.tokenId1);
     
-          expect(await ZGldInstance.balanceOf(ownerAddress)).to.equal(0);
-          expect(await ZGldInstance.balanceOf(aliceAddress)).to.equal(1);
+          expect(await ZLootInstance.balanceOf(ownerAddress)).to.equal(0);
+          expect(await ZLootInstance.balanceOf(aliceAddress)).to.equal(1);
         });
     
         it("transfer clears the approval for the token ID", async () => {
           const recipient = (await ethers.getSigners())[2];
           const recipientAddress = await recipient.getAddress();
-          await ZLootInstance.claim(
-           constants.NFT.tokenId1
-          );
-          await ZGldInstance.approve(aliceAddress,constants.NFT.tokenId1);
-          expect(await ZGldInstance.getApproved(constants.NFT.tokenId1)).to.be.equal(aliceAddress);
+          await ZLootInstance.connect(owner).claim(
+            constants.NFT.tokenId1,
+            ethers.utils.parseUnits("1", "ether"),
+             {
+                 value: ethers.utils.parseUnits("1", "ether")
+             }
+           );
+          await ZLootInstance.approve(aliceAddress,constants.NFT.tokenId1);
+          expect(await ZLootInstance.getApproved(constants.NFT.tokenId1)).to.be.equal(aliceAddress);
     
-          await ZGldInstance.connect(owner).transfer(ownerAddress, recipientAddress, constants.NFT.tokenId1);
-          expect(await ZGldInstance.balanceOf(recipientAddress)).to.equal(BigNumber.from("1"));
-          expect(await ZGldInstance.ownerOf(constants.NFT.tokenId1)).to.equal(recipientAddress);
-          expect(await ZGldInstance.balanceOf(ownerAddress)).to.equal(ethers.constants.Zero);
+          await ZLootInstance.connect(owner).transfer(ownerAddress, recipientAddress, constants.NFT.tokenId1);
+          expect(await ZLootInstance.balanceOf(recipientAddress)).to.equal(BigNumber.from("1"));
+          expect(await ZLootInstance.ownerOf(constants.NFT.tokenId1)).to.equal(recipientAddress);
+          expect(await ZLootInstance.balanceOf(ownerAddress)).to.equal(ethers.constants.Zero);
     
-          expect(await ZGldInstance.getApproved(constants.NFT.tokenId1)).to.equal(ethers.constants.AddressZero);
+          expect(await ZLootInstance.getApproved(constants.NFT.tokenId1)).to.equal(ethers.constants.AddressZero);
         });
     
         it("transfer adjusts owner balances", async () => {
-          await ZLootInstance.claim(
-           constants.NFT.tokenId1
-          );
+          await ZLootInstance.connect(owner).claim(
+            constants.NFT.tokenId1,
+            ethers.utils.parseUnits("1", "ether"),
+             {
+                 value: ethers.utils.parseUnits("1", "ether")
+             }
+           );
     
-          expect(await ZGldInstance.balanceOf(ownerAddress)).to.equal(BigNumber.from("1"));
+          expect(await ZLootInstance.balanceOf(ownerAddress)).to.equal(BigNumber.from("1"));
         });
     
         it("transferFrom",async () => {
-        await ZLootInstance.claim(
-         constants.NFT.tokenId1
-        );
-          await ZGldInstance.connect(owner).transferFrom(ownerAddress,aliceAddress, constants.NFT.tokenId1);
-          expect(await ZGldInstance.ownerOf(constants.NFT.tokenId1)).to.equal(aliceAddress);
+          await ZLootInstance.connect(owner).claim(
+            constants.NFT.tokenId1,
+            ethers.utils.parseUnits("1", "ether"),
+             {
+                 value: ethers.utils.parseUnits("1", "ether")
+             }
+           );
+          await ZLootInstance.connect(owner).transferFrom(ownerAddress,aliceAddress, constants.NFT.tokenId1);
+          expect(await ZLootInstance.ownerOf(constants.NFT.tokenId1)).to.equal(aliceAddress);
         });
-    })
+    
 
-
+  })
 })
