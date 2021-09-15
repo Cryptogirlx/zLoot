@@ -3,7 +3,7 @@ const { ethers } = require('hardhat');
 const hre = require("hardhat");
 import { BigNumber, Contract, Signer } from "ethers";
 import { constants } from './utils/Constants';
-
+import {arrays} from "./utils/Arrays";
 describe("Deployment", () => {
 
 
@@ -44,7 +44,8 @@ describe("Deployment", () => {
                );
                actualResult=  await ZLootInstance.getCompanion(constants.NFT.tokenId1)
                console.log("companion",actualResult)
-               // expectedResult = await companionByTokenId 
+               // expectedResult = await testPluck(constants.NFT.tokenId1,keyPrefix??,arrays.Traits.companion);
+               // console.log(expectedResult);
 
            // await expect(ZLootInstance.getCompanion(constants.NFT.tokenId1).to.equal(expectedResult));
         });
