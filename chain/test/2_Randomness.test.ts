@@ -33,18 +33,17 @@ describe("Deployment", () => {
 
     describe("Randomness", () => {
 
-        // it.only('testing random function', async () => {
-        //     let expected, actual
-        //    actual = await ZLootInstance.random("COMPANION1")
-        //    console.log(actual)
-        //    expected = testRandom("COMPANION1")
+        it('testing random function', async () => {
+            let expected, actual
+           actual = await ZLootInstance.random("COMPANION1")
+           console.log(actual)
+           expected = testRandom("COMPANION1")
 
-        //    console.log("exp",expected)
+           console.log("exp",expected)
 
-        //    await expect (expected).to.equal(actual);
+           await expect (expected).to.equal(actual);
 
-        //  // Passing but chaned function back to internal
-        // })
+        })
 
 
         it('always gives the same companion for given tokenID', async () => {
@@ -57,7 +56,7 @@ describe("Deployment", () => {
                  }
                );
                actualResult=  await ZLootInstance.getCompanion(constants.NFT.tokenId1)
-               console.log("actual",actualResult)
+               console.log("companion",actualResult)
                expectedResult = await testPluck(constants.NFT.tokenId1, keyPrefixes.companion, arrays.Traits.companion);
                console.log("expected",expectedResult);
 
@@ -91,7 +90,7 @@ describe("Deployment", () => {
                  }
                );
                actualResult=  await ZLootInstance.getPower(constants.NFT.tokenId1)
-               console.log("weapon",actualResult)
+               console.log("power",actualResult)
                expectedResult = await testPluck(constants.NFT.tokenId1, keyPrefixes.power, arrays.Traits.power);
                console.log("expected",expectedResult);
 

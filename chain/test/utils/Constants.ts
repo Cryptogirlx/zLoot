@@ -25,31 +25,40 @@ export const testPluck = (tokenId:number,keyPrefix:string,sourceArray:any) => {
     let turnToString = (keyPrefix).concat(tokenId.toString()); // creating string from tokenID + keyprefix
    
      let rand= testRandom(turnToString);// turn it into a hash then number with randomfunction
-     let index = rand % sourceArray.length; // calculate index
-     console.log("index",index)
+     console.log("rand",rand,BigNumber.from(rand).toString())
+     let index = BigNumber.from(rand).mod(sourceArray.length); // calculate index
+     console.log("index",index.toString())
+     index = parseInt(index.toString())
      let output = sourceArray[index];
-
-     let greatness = rand % 21;
-
-     console.log("greatness",greatness)
+     
+     rand = BigNumber.from(rand).toString().slice(0,10) // get the last 10 characters of the string and convert it back to a number
+     console.log("sliced",rand) 
+     rand = parseInt(rand);
+     let greatness = BigNumber.from(rand).mod(21);
+     greatness = parseInt(greatness.toString())
+     console.log("greatness",greatness.toString())
 
      if (greatness > 14){
-        let index = rand % arrays.Traits.suffix.length
+        let index = BigNumber.from(rand).mod(arrays.Traits.suffix.length)
         output = arrays.Traits.suffix[index] + " " + output
      }
+     
     if (greatness >= 19){
 
         let name1 = rand % arrays.Traits.namePrefix.length
         let name2 = rand % arrays.Traits.nameSuffix.length
-   output = arrays.Traits.namePrefix[name1] + " " + arrays.Traits.nameSuffix[name2] + " " + output
-    }
+   if (greatness = 19) {
+    output = arrays.Traits.namePrefix[name1] + " " + arrays.Traits.nameSuffix[name2] + " " + output
+   }
+   else {
+    let name1 = rand % arrays.Traits.namePrefix.length
+    let name2 = rand % arrays.Traits.nameSuffix.length
+    output = arrays.Traits.namePrefix[name1] + " " + arrays.Traits.nameSuffix[name2] + " " + output + " " + "+1"
+}
+}
      
-    else {
 
-        let name1 = rand % arrays.Traits.namePrefix.length
-        let name2 = rand % arrays.Traits.nameSuffix.length
-        output = arrays.Traits.namePrefix[name1] + " " + arrays.Traits.nameSuffix[name2] + " " + output + " " + "+1"
-    }
+
     return output 
 
         }
