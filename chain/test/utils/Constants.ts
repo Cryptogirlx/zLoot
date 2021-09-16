@@ -1,6 +1,6 @@
 const { BigNumber } = require("@ethersproject/bignumber");
 const { ethers } = require("hardhat");
-import {arrays} from "./Arrays";
+import {arrays,keyPrefixes} from "./Arrays";
 
 export const constants = {
     NFT: {
@@ -11,23 +11,40 @@ export const constants = {
 }
 
 
-   
+export const testRandom= (string:string) => {
 
-const testRandomFunction = async(string:string,arrayLength:number) => {
- let rand, index
+// the original random function takes a string and turns it into a hash than turns that to a number
 
- rand = ethers.utils.keccak256(string);
- index = (rand % arrayLength)
+const hash = ethers.utils.id(string);
+// const hashToNumber = parseFloat(hash);
 
- return index
-
+ return hash
+ console.log(hash.toString())
 }
 
-export const testPluck = async(tokenId:number,keyPrefix:string,sourceArray:string) => {
+export const testPluck = (tokenId:number,keyPrefix:string,sourceArray:any) => {
+  
+    let turnToString = (keyPrefix).concat(tokenId.toString()); // creating string from tokenID + keyprefix
+     let rand= testRandom(turnToString);// turn it into a hash then number with randomfunction
+     let index = rand % sourceArray.length; // calculate index
+     let output = sourceArray[index];
 
-    const random = testRandomFunction()
+     let greatness = rand % 21;
 
-}
+     if (greatness >= 19){
+        return output
+     }
+    if (greatness = 19){
+
+    }
+     
+    else {
+        
+    }
+
+        }
+
+
 
 
 

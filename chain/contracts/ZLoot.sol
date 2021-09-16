@@ -61,42 +61,6 @@ contract ZLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         "Palm reading"
     ];
 
-    string[] private waistArmor = [
-        "Ornate Belt",
-        "War Belt",
-        "Plated Belt",
-        "Mesh Belt",
-        "Heavy Belt",
-        "Demonhide Belt",
-        "Dragonskin Belt",
-        "Studded Leather Belt",
-        "Hard Leather Belt",
-        "Leather Belt",
-        "Brightsilk Sash",
-        "Silk Sash",
-        "Wool Sash",
-        "Linen Sash",
-        "Sash"
-    ];
-
-    string[] private footArmor = [
-        "Holy Greaves",
-        "Ornate Greaves",
-        "Greaves",
-        "Chain Boots",
-        "Heavy Boots",
-        "Demonhide Boots",
-        "Dragonskin Boots",
-        "Studded Leather Boots",
-        "Hard Leather Boots",
-        "Leather Boots",
-        "Divine Slippers",
-        "Silk Slippers",
-        "Wool Shoes",
-        "Linen Shoes",
-        "Shoes"
-    ];
-
     string[] private handArmor = [
         "Holy Gauntlets",
         "Ornate Gauntlets",
@@ -114,8 +78,6 @@ contract ZLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         "Linen Gloves",
         "Gloves"
     ];
-
-    string[] private necklaces = ["Necklace", "Amulet", "Pendant"];
 
     string[] private rings = [
         "Gold Ring",
@@ -237,7 +199,7 @@ contract ZLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         "Moon"
     ];
 
-    function random(string memory input) internal pure returns (uint256) {
+    function random(string memory input) public pure returns (uint256) {
         return uint256(keccak256(abi.encodePacked(input)));
     }
 

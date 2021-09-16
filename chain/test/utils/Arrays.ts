@@ -2,6 +2,25 @@ const { BigNumber } = require("@ethersproject/bignumber");
 const { ethers } = require("hardhat");
 
 
+export const company = [
+    "Black Cat",
+    "Dragon",
+    "Lucifer",
+    "Baphomet",
+    "Elf",
+    "Orc",
+    "Demogorgon",
+    "Cenobite",
+    "Cerberus",
+    "Ghost",
+    "Werewolf",
+    "Leviathan",
+    "Kraken",
+    "Zombie",
+    "Mummy"
+]
+
+
 export const keyPrefixes = {
     ring: "RING",
     hand:"HAND",
