@@ -2,6 +2,7 @@ pragma solidity 0.8.0;
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "hardhat/console.sol";
 
 contract ZLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     string[] private weapons = [
@@ -232,7 +233,9 @@ contract ZLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
             string(abi.encodePacked(keyPrefix, toString(tokenId)))
         );
         string memory output = sourceArray[rand % sourceArray.length];
+        console.log(rand % sourceArray.length);
         uint256 greatness = rand % 21;
+        console.log(greatness);
         if (greatness > 14) {
             output = string(
                 abi.encodePacked(output, " ", suffixes[rand % suffixes.length])
