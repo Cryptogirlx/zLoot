@@ -16,7 +16,7 @@ contract ZGold is Context, Ownable, ERC20 {
     mapping(address => bool) public zGoldClaimed;
 
     constructor() public ERC20("ZGold", "ZGLD") {
-        _mint(msg.sender, 600000);
+        // _mint(msg.sender, 600000);
     }
 
     function getZGLDBalance(address tokenOwner) public view returns (uint256) {
@@ -32,17 +32,13 @@ contract ZGold is Context, Ownable, ERC20 {
         );
         // check for valid token ID
         require(tokenId >= 600, "Invalid token ID");
-        _claim(sender, msg.sender, ZGoldPerToken);
+        _claim(tokenOwner, ZGoldPerToken);
     }
 
-    function _claim(
-        address sender,
-        address recipient,
-        uint256 amount
-    ) internal {
+    function _claim(address tokenOwner, uint256 amount) internal {
         // address cannot claim twice
         // require(zGoldBalance[recipient] = 0, "Tokens already claimed");
-        _transfer(sender, msg.sender, ZGoldPerToken);
-        zGoldClaimed[recipient] == true;
+        _mint(tokenOwner, ZGoldPerToken);
+        zGoldClaimed[tokenOwner] == true;
     }
 }
