@@ -245,6 +245,9 @@ contract ZLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
             string[2] memory name;
             name[0] = namePrefixes[rand % namePrefixes.length];
             name[1] = nameSuffixes[rand % nameSuffixes.length];
+            console.log(name[0], name[1]);
+            console.log(rand % namePrefixes.length);
+            console.log(rand % nameSuffixes.length);
             if (greatness == 19) {
                 output = string(
                     abi.encodePacked('"', name[0], " ", name[1], '" ', output)

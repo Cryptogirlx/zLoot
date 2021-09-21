@@ -41,8 +41,8 @@
       ]
     },
     "/Users/cryptogirl/LinumLabs/zLoot/chain/contracts/ZLoot.sol": {
-      "lastModificationDate": 1631866853352,
-      "contentHash": "f789971042a697bd4f5eeb7a3ea743ef",
+      "lastModificationDate": 1632211352185,
+      "contentHash": "1845cd129fed5532c21901b527169538",
       "sourceName": "contracts/ZLoot.sol",
       "solcConfig": {
         "version": "0.8.0",
