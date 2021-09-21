@@ -5,8 +5,10 @@ const chalk = require("chalk");
 const fs = require("fs");
 const ProgressBar = require("progress");
 
-const { constants } = require("../utils/Constants");
+const { constants } = require("../test/utils/Constants");
 
+const gasLimit = 5000000; // 5 million
+const gasPrice = 5000000000; // 5 gwei
 // If deploy network is here, will attempt to verify on Etherscan
 const verifiableNetwork = [
   "mainnet",
@@ -17,7 +19,6 @@ const verifiableNetwork = [
   "polygon",
   "mumbai",
 ];
-
 const deploy = async (
   contractName,
   _args = [],
@@ -87,66 +88,68 @@ async function main() {
   //      example: await deploy("Token", [], {}, { "SafeMath": "0x..."});
   //    - function calls: use this format: `token.contact.mint()`
 
-  const zLoot = await deploy(
-    "ZLoot",
-    [constants.DEPLOY.name, constants.DEPLOY.symbol],
-    {
-      gasLimit,
-      gasPrice,
-    }
-  );
+  const zLoot = await deploy("ZLoot");
 
   contracts.push(zLoot); // includes details for verification
-}
-// === VERIFICATION ===
-if (verifiableNetwork.includes(network)) {
-  console.log(
-    "Beginning Etherscan verification process...\n",
-    chalk.yellow(
-      `WARNING: The process will wait two minutes for Etherscan \nto update their backend before commencing, please wait \nand do not stop the terminal process...`
-    )
-  );
+  // includes details for verification
 
-  const bar = new ProgressBar("Etherscan update: [:bar] :percent :etas", {
-    total: 50,
-    complete: "\u2588",
-    incomplete: "\u2591",
-  });
-  // 1 minute timeout to let Etherscan update
-  const timer = setInterval(() => {
-    bar.tick();
-    if (bar.complete) {
-      clearInterval(timer);
-    }
-  }, 2300);
+  // === VERIFICATION ===
+  if (verifiableNetwork.includes(network)) {
+    console.log(
+      "Beginning Etherscan verification process...\n",
+      chalk.yellow(
+        `WARNING: The process will wait two minutes for Etherscan \nto update their backend before commencing, please wait \nand do not stop the terminal process...`
+      )
+    );
 
-  await pause(60000);
-
-  // there may be some issues with contracts using libraries
-  // if you experience problems, refer to https://hardhat.org/plugins/nomiclabs-hardhat-etherscan.html#providing-libraries-from-a-script-or-task
-  console.log(chalk.cyan("\n🔍 Running Etherscan verification..."));
-
-  await Promise.all(
-    contracts.map(async (contract) => {
-      console.log(`Verifying ${contract.name}...`);
-      try {
-        await hre.run("verify:verify", {
-          address: contract.address,
-          constructorArguments: contract.args,
-        });
-        console.log(chalk.cyan(`✅ ${contract.name} verified!`));
-      } catch (error) {
-        console.log(error);
+    const bar = new ProgressBar("Etherscan update: [:bar] :percent :etas", {
+      total: 50,
+      complete: "\u2588",
+      incomplete: "\u2591",
+    });
+    // 1 minute timeout to let Etherscan update
+    const timer = setInterval(() => {
+      bar.tick();
+      if (bar.complete) {
+        clearInterval(timer);
       }
-    })
-  );
-}
+    }, 2300);
 
-console.log("✅✅ Deployment script completed! ✅✅");
+    // await pause(60000);
+
+    // there may be some issues with contracts using libraries
+    // if you experience problems, refer to https://hardhat.org/plugins/nomiclabs-hardhat-etherscan.html#providing-libraries-from-a-script-or-task
+    console.log(chalk.cyan("\n🔍 Running Etherscan verification..."));
+
+    await Promise.all(
+      contracts.map(async (contract) => {
+        console.log(`Verifying ${contract.name}...`);
+        try {
+          await hre.run("verify:verify", {
+            address: contract.address,
+            constructorArguments: contract.args,
+          });
+          console.log(chalk.cyan(`✅ ${contract.name} verified!`));
+        } catch (error) {
+          console.log(error);
+        }
+      })
+    );
+  }
+
+  console.log("✅✅ Deployment script completed! ✅✅");
+
+  tableContracts = contracts.map((c) => ({
+    name: c.name,
+    address: c.address,
+  }));
+
+  console.table(tableContracts);
+}
 
 main()
   .then(() => process.exit(0))
   .catch((error) => {
     console.error(error);
     process.exit(1);
-  }); // Calling the function to deploy the contract
+  });

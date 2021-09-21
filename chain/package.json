@@ -12,6 +12,7 @@
     "@types/chai": "^4.2.14",
     "@types/cli-progress": "^3.9.0",
     "@types/jest": "^26.0.16",
+    "@types/progress": "^2.0.5",
     "chai": "^4.2.0",
     "chalk": "^4.1.2",
     "cli-progress": "^3.9.0",
@@ -26,10 +27,10 @@
     "yargs": "^16.2.0"
   },
   "devDependencies": {
-    "@nomiclabs/hardhat-etherscan": "^2.1.1",
+    "@nomiclabs/hardhat-etherscan": "^2.1.6",
     "@types/cli-progress": "^3.9.0",
     "@types/node": "^14.14.11",
-    "@types/progress": "^2.0.3"
+    "@types/progress": "^2.0.5"
   },
   "scripts": {
     "chain": "hardhat node",
@@ -44,6 +45,7 @@
     "accounts": "hardhat accounts",
     "balance": "hardhat balance",
     "generate": "hardhat generate",
-    "account": "hardhat account"
+    "account": "hardhat account",
+    "deploy:rinkeby": "hardhat clean && hardhat run --network rinkeby scripts/deploy.js"
   }
 }

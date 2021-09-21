@@ -19,11 +19,13 @@ This application uses
 - Solidity
 - Hardhat testing framework
 
-## Latest smart contracts depolyed on Mumbai
+## Latest smart contracts depolyed on Rinkeby
+
+- ZLoot
 
 ## Faucets
 
-- [Mumbai Testnet MATIC](https://faucet.polygon.technology/)
+- [Rinkeby Testnet ETH](https://faucet.rinkeby.io/)
 
 ## Future Improvements
 
