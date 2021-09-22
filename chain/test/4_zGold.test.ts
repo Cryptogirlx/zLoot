@@ -29,64 +29,64 @@ describe("Deployment", () => {
     
     })
 
-    // describe("Token basics", () => {
+    describe("Token basics", () => {
 
-        // it.only('sets the name correctly', async () => {
-        //     expect(await ZGoldContract.name()).to.equal("ZGold");
-        // });
-        // it.only('sets symbol correctly', async () => {
-        //     expect(await ZGoldContract.symbol()).to.equal("ZGLD");
-        // });
+        it('sets the name correctly', async () => {
+            expect(await ZGoldContract.name()).to.equal("ZGold");
+        });
+        it('sets symbol correctly', async () => {
+            expect(await ZGoldContract.symbol()).to.equal("ZGLD");
+        });
 
-        // it.only('sets total supply correctly', async () => {
-        //     expect(await ZGoldContract.totalSupply()).to.equal(BigNumber.from("600000"));
-        // });
+        it('sets total supply correctly', async () => {
+            expect(await ZGoldContract.totalSupply()).to.equal(BigNumber.from("600000"));
+        });
 
 
-        // it.only('returns balanceOf an account correctly', async () => {
+        it('returns balanceOf an account correctly', async () => {
             
            
-        //     expect (await ZGoldContract.balanceOf(ownerAddress)).to.equal(BigNumber.from("600000"));
+            expect (await ZGoldContract.balanceOf(ownerAddress)).to.equal(BigNumber.from("600000"));
   
-        //   });
+          });
       
-//           it('decreases the balance of the sender after transfer', async () => {
+          it('decreases the balance of the sender after transfer', async () => {
               
               
-//               await ZGoldContract.claimGold()
-//               await ZGoldContract.connect(owner).transfer(aliceAddress,20);
-//               await ZGoldContract.decreaseAllowance(ownerAddress,0); // WHY 0 ?!
-//               expect (await ZGoldContract.balanceOf(ownerAddress)).to.equal(BigNumber.from("999999999999999980"));
-//             });
+              await ZGoldContract.connect(alice).claimGold(constants.NFT.tokenId1,aliceAddress);
+              await ZGoldContract.connect(owner).transfer(aliceAddress,20);
+              await ZGoldContract.decreaseAllowance(ownerAddress,0); // WHY 0 ?!
+              expect (await ZGoldContract.balanceOf(ownerAddress)).to.equal(BigNumber.from("999999999999999980"));
+            });
          
-//           it('increases the balance of the reciever after transfer', async () => {
+          it('increases the balance of the reciever after transfer', async () => {
               
-//               await ZGoldContract.connect(owner).transfer(aliceAddress,20);
-//               await ZGoldContract.increaseAllowance(aliceAddress,20);
+              await ZGoldContract.connect(owner).transfer(aliceAddress,20);
+              await ZGoldContract.increaseAllowance(aliceAddress,20);
         
-//               expect (await ZGoldContract.balanceOf(aliceAddress)).to.equal(BigNumber.from("20"));
-//             });
-//           });
+              expect (await ZGoldContract.balanceOf(aliceAddress)).to.equal(BigNumber.from("20"));
+            });
+          
       
-//           it('spender is allowed to transfer on behalf of the token owner ', async () => {
+          it('spender is allowed to transfer on behalf of the token owner ', async () => {
 
-//             await ZGoldContract.approve(aliceAddress,100);
-//             expect(await ZGoldContract.allowance(ownerAddress,aliceAddress)).to.equal(100);
-//    })
-//     })
-//    it('emits Trasfer properly', async () => {
-//     await expect(
-//         ZGoldContract
-//           .connect(owner)
-//           .transfer(bobAddress,100)).to.emit(ZGoldContract, "Transfer")
-//         .withArgs(ownerAddress,bobAddress,100);
-//     });
-// it('emits Approval properly', async () => {
-//     expect ( await ZGoldContract.connect(owner).approve(aliceAddress,100))
-//     .to.emit(ZGoldContract, "Approval")
-//     .withArgs(ownerAddress, aliceAddress,100)
-// });
-// });
+            await ZGoldContract.approve(aliceAddress,100);
+            expect(await ZGoldContract.allowance(ownerAddress,aliceAddress)).to.equal(100);
+   })
+
+   it('emits Trasfer properly', async () => {
+    await expect(
+        ZGoldContract
+          .connect(owner)
+          .transfer(bobAddress,100)).to.emit(ZGoldContract, "Transfer")
+        .withArgs(ownerAddress,bobAddress,100);
+    });
+it('emits Approval properly', async () => {
+    expect ( await ZGoldContract.connect(owner).approve(aliceAddress,100))
+    .to.emit(ZGoldContract, "Approval")
+    .withArgs(ownerAddress, aliceAddress,100)
+});
+
    
     
 
@@ -112,14 +112,24 @@ describe("Deployment", () => {
                 expect(await ZGoldInstance.isZGLDClaimed(aliceAddress)).to.equal(false);
             })
 
-        it.only('address has to own NFT to claim gold', async () => {
+        it('address has to own NFT to claim gold', async () => {
 
-        await (expect(ZGoldInstance.connect(bob).claimGold(constants.NFT.tokenId1,bobAddress))).to.be.revertedWith("Must own ZLoot token to claim gold");
+            await expect (ZGoldInstance.connect(bob).claimGold(constants.NFT.tokenId1,bobAddress)).to.be.revertedWith("Must own ZLoot token to claim gold")
             
         })
 
         it('address cannot claim gold twice', async () => {
-            
+                  // first mint NFT
+                  await ZLootInstance.connect(alice).claim(
+                    constants.NFT.tokenId1,
+                    ethers.utils.parseUnits("1", "ether"),
+                     {
+                         value: ethers.utils.parseUnits("1", "ether")
+                     }
+                   );
+                // then claim tokens
+                await ZGoldInstance.connect(alice).claimGold(constants.NFT.tokenId1,aliceAddress);
+                await expect(await ZGoldInstance.connect(alice).claimGold(constants.NFT.tokenId1,aliceAddress)).to.be.revertedWith("Can only claim gold once")
         })
         it('address has to be owner of NFT', async () => {
             await ZLootInstance.connect(alice).claim(
@@ -132,6 +142,7 @@ describe("Deployment", () => {
         expect(await ZLootInstance.ownerOf(constants.NFT.tokenId1)).to.equal(aliceAddress);
         });
    
-  
+    
     })
+});
 

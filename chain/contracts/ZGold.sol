@@ -9,6 +9,7 @@ contract ZGold is Context, Ownable, ERC20 {
     address public ZLootContractAddress =
         0xBA6ad4a2794B82876984FdDFA9CAE6A66249FfC8;
     IZLoot public ZLootContract;
+    IERC721Enumerable public Ownership;
     uint256 public ZGoldPerToken = 1000 * (10**decimals());
 
     mapping(address => uint256) public zGoldBalance;
@@ -17,6 +18,7 @@ contract ZGold is Context, Ownable, ERC20 {
 
     constructor() public ERC20("ZGold", "ZGLD") {
         ZLootContract = IZLoot(ZLootContractAddress);
+        Ownership = IERC721Enumerable(ZLootContractAddress);
     }
 
     function getZGLDBalance(address tokenOwner) public view returns (uint256) {
@@ -31,11 +33,11 @@ contract ZGold is Context, Ownable, ERC20 {
         // has to check if address is owner of token
 
         require(
-            _msgSender() == ZLootContract.ownerOf(tokenId),
+            _msgSender() == Ownership.ownerOf(tokenId),
             "Must own ZLoot token to claim gold"
         );
         // check for valid token ID
-        require(tokenId >= 600, "Invalid token ID");
+        require(tokenId <= 600, "Invalid token ID");
         // check that they haven't claim the gold yet
         require(zGoldClaimed[tokenOwner] == false, "Can only claim gold once");
         _claim(tokenOwner, ZGoldPerToken);

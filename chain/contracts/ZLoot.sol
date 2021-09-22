@@ -200,6 +200,10 @@ contract ZLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         "Moon"
     ];
 
+    // function isTokenOwner(uint256 tokenId) public returns (address) {
+    //     ownerOf(tokenId);
+    // }
+
     function random(string memory input) public pure returns (uint256) {
         return uint256(keccak256(abi.encodePacked(input)));
     }
