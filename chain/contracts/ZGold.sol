@@ -3,24 +3,28 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Context.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "./interfaces/IZLoot.sol";
 
 contract ZGold is Context, Ownable, ERC20 {
     address public ZLootContractAddress =
-        0xFF9C1b15B16263C61d017ee9F65C50e4AE0113D7; // ADDRESS NOT CORRECT, just using it for compile
-    IERC721Enumerable public ZLootContract;
+        0xBA6ad4a2794B82876984FdDFA9CAE6A66249FfC8;
+    IZLoot public ZLootContract;
     uint256 public ZGoldPerToken = 1000 * (10**decimals());
 
     mapping(address => uint256) public zGoldBalance;
-    mapping(address => uint256) public zLootBalance;
 
     mapping(address => bool) public zGoldClaimed;
 
     constructor() public ERC20("ZGold", "ZGLD") {
-        // _mint(msg.sender, 600000);
+        ZLootContract = IZLoot(ZLootContractAddress);
     }
 
     function getZGLDBalance(address tokenOwner) public view returns (uint256) {
         return zGoldBalance[tokenOwner];
+    }
+
+    function isZGLDClaimed(address tokenOwner) public view returns (bool) {
+        return zGoldClaimed[tokenOwner];
     }
 
     function claimGold(uint256 tokenId, address tokenOwner) public {
@@ -28,16 +32,18 @@ contract ZGold is Context, Ownable, ERC20 {
 
         require(
             _msgSender() == ZLootContract.ownerOf(tokenId),
-            "must own token"
+            "Must own ZLoot token to claim gold"
         );
         // check for valid token ID
         require(tokenId >= 600, "Invalid token ID");
+        // check that they haven't claim the gold yet
+        require(zGoldClaimed[tokenOwner] == false, "Can only claim gold once");
         _claim(tokenOwner, ZGoldPerToken);
     }
 
     function _claim(address tokenOwner, uint256 amount) internal {
         // address cannot claim twice
-        // require(zGoldBalance[recipient] = 0, "Tokens already claimed");
+        // require(zGoldBalance[tokenOwner] = 0, "Tokens already claimed");
         _mint(tokenOwner, ZGoldPerToken);
         zGoldClaimed[tokenOwner] == true;
     }

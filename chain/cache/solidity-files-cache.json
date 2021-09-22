@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/cryptogirl/LinumLabs/zLoot/chain/contracts/ZGold.sol": {
-      "lastModificationDate": 1632238661423,
-      "contentHash": "095e5cfdcb1bdad469ad2cb113f601aa",
+      "lastModificationDate": 1632307377652,
+      "contentHash": "d606d0cf1c8f6fe31891f10c5424c3cb",
       "sourceName": "contracts/ZGold.sol",
       "solcConfig": {
         "version": "0.8.0",
@@ -31,7 +31,8 @@
         "@openzeppelin/contracts/token/ERC20/ERC20.sol",
         "@openzeppelin/contracts/access/Ownable.sol",
         "@openzeppelin/contracts/utils/Context.sol",
-        "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol"
+        "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
+        "./interfaces/IZLoot.sol"
       ],
       "versionPragmas": [
         "0.8.0"
@@ -683,6 +684,40 @@
       ],
       "artifacts": [
         "IERC20Metadata"
+      ]
+    },
+    "/Users/cryptogirl/LinumLabs/zLoot/chain/contracts/interfaces/IZLoot.sol": {
+      "lastModificationDate": 1632306779498,
+      "contentHash": "05e57a3c252a800003c370c375d1c912",
+      "sourceName": "contracts/interfaces/IZLoot.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.8.0"
+      ],
+      "artifacts": [
+        "IZLoot"
       ]
     }
   }

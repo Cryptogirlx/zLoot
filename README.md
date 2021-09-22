@@ -21,7 +21,7 @@ This application uses
 
 ## Latest smart contracts depolyed on Rinkeby
 
-- ZLoot
+- ZLoot: 0xBA6ad4a2794B82876984FdDFA9CAE6A66249FfC8
 
 ## Faucets
 

@@ -88,9 +88,9 @@ describe("Deployment", () => {
 // });
 // });
    
-    describe("Claiming tokens", () => {
+    
 
-        it.only('owner of NFT should be able to claim zGold', async () => {
+        it('owner of NFT should be able to claim zGold', async () => {
 
             // first mint NFT
             await ZLootInstance.connect(alice).claim(
@@ -101,25 +101,37 @@ describe("Deployment", () => {
                  }
                );
             // then claim tokens
-            await ZGoldInstance.claimGold(constants.NFT.tokenId1,aliceAddress);
+            await ZGoldInstance.connect(alice).claimGold(constants.NFT.tokenId1,aliceAddress);
             //check if tokens are recived
             expect(await ZGoldInstance.balanceOf(aliceAddress)).to.be.equal(BigNumber.from("1000"))
             
             })
-        it('address should have no tokens prior to claiming', async () => {
+       
+            it('address has not claimed gold prior', async () => {
             
-        });
+                expect(await ZGoldInstance.isZGLDClaimed(aliceAddress)).to.equal(false);
+            })
 
-        it('address cannot claim twice', async () => {
+        it.only('address has to own NFT to claim gold', async () => {
+
+        await (expect(ZGoldInstance.connect(bob).claimGold(constants.NFT.tokenId1,bobAddress))).to.be.revertedWith("Must own ZLoot token to claim gold");
+            
+        })
+
+        it('address cannot claim gold twice', async () => {
             
         })
         it('address has to be owner of NFT', async () => {
-        
+            await ZLootInstance.connect(alice).claim(
+                constants.NFT.tokenId1,
+                ethers.utils.parseUnits("1", "ether"),
+                 {
+                     value: ethers.utils.parseUnits("1", "ether")
+                 }
+               );
+        expect(await ZLootInstance.ownerOf(constants.NFT.tokenId1)).to.equal(aliceAddress);
         });
    
-    it('only claim tokens 1 time per address', async () => {
-    
-    });
+  
     })
 
-})
