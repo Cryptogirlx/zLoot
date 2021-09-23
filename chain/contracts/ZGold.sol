@@ -6,8 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "./interfaces/IZLoot.sol";
 
 contract ZGold is Context, Ownable, ERC20 {
-    address public ZLootContractAddress =
-        0xBA6ad4a2794B82876984FdDFA9CAE6A66249FfC8;
+    address public ZLootContractAddress;
     IZLoot public ZLootContract;
     IERC721Enumerable public Ownership;
     uint256 public ZGoldPerToken = 1000 * (10**decimals());
@@ -16,7 +15,8 @@ contract ZGold is Context, Ownable, ERC20 {
 
     mapping(address => bool) public zGoldClaimed;
 
-    constructor() public ERC20("ZGold", "ZGLD") {
+    constructor(address _ZLootContractAddress) public ERC20("ZGold", "ZGLD") {
+        ZLootContractAddress = _ZLootContractAddress;
         ZLootContract = IZLoot(ZLootContractAddress);
         Ownership = IERC721Enumerable(ZLootContractAddress);
     }
@@ -46,7 +46,7 @@ contract ZGold is Context, Ownable, ERC20 {
     function _claim(address tokenOwner, uint256 amount) internal {
         // address cannot claim twice
         // require(zGoldBalance[tokenOwner] = 0, "Tokens already claimed");
-        _mint(tokenOwner, ZGoldPerToken);
         zGoldClaimed[tokenOwner] == true;
+        _mint(tokenOwner, ZGoldPerToken);
     }
 }

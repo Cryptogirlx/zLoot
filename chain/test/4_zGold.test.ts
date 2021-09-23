@@ -25,7 +25,7 @@ describe("Deployment", () => {
         ZLootContract = await ethers.getContractFactory("ZLoot");
         ZLootInstance = await ZLootContract.connect(owner).deploy();
         ZGoldContract = await ethers.getContractFactory("ZGold");
-        ZGoldInstance = await ZGoldContract.connect(owner).deploy();
+        ZGoldInstance = await ZGoldContract.connect(owner).deploy(ZLootInstance.address);
     
     })
 
@@ -90,7 +90,7 @@ it('emits Approval properly', async () => {
    
     
 
-        it('owner of NFT should be able to claim zGold', async () => {
+        it.only('owner of NFT should be able to claim zGold', async () => {
 
             // first mint NFT
             await ZLootInstance.connect(alice).claim(
