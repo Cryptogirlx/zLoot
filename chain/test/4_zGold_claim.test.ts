@@ -53,7 +53,7 @@ describe("Deployment", () => {
                      value: ethers.utils.parseUnits("1", "ether")
                  }
                );
-               await expect (ZGoldInstance.connect(alice).claimGold(666,aliceAddress)).to.be.revertedWith("Invalid token ID")
+               await expect (ZGoldInstance.connect(alice).claimGold(constants.NFT.tokenId2,aliceAddress)).to.be.revertedWith("owner query for nonexistent token")
                // it reverts "ERC721: owner query for nonexistent token" with this buy why
         })
 
@@ -85,7 +85,7 @@ describe("Deployment", () => {
 
    
         });
-        it.only('returns balanceOf an account correctly after claiming', async () => {
+        it('returns balance of an account correctly after claiming', async () => {
             
             await ZLootInstance.connect(alice).claim(
                 constants.NFT.tokenId1,
@@ -95,7 +95,7 @@ describe("Deployment", () => {
                  }
                );
                await ZGoldInstance.connect(alice).claimGold(constants.NFT.tokenId1,aliceAddress);
-            expect (await ZGoldInstance.balanceOf(aliceAddress)).to.equal(constants.ERC.ZGoldPerToken);
+            expect (await ZGoldInstance.getZGLDBalance(aliceAddress)).to.equal(constants.ERC.ZGoldPerToken);
   
           });
     

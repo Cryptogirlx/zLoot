@@ -35,22 +35,22 @@ contract ZGold is Context, Ownable, ERC20 {
     }
 
     function claimGold(uint256 tokenId, address tokenOwner) public {
+        // check for valid token ID
+        // require(tokenId <= 600, "Invalid token ID"); ==> is this necesarry if only the already minted tokens have ids?
         // has to check if address is owner of token
         require(
             _msgSender() == Ownership.ownerOf(tokenId),
             "Must own ZLoot token to claim gold"
         );
-        // check for valid token ID
-        require(tokenId <= 600, "Invalid token ID");
+
         // check that they haven't claim the gold yet
         require(zGoldClaimed[tokenOwner] == false, "Can only claim gold once");
         _claim(tokenId, tokenOwner);
     }
 
     function _claim(uint256 tokenId, address tokenOwner) public {
-        // address cannot claim twice
-        // require(zGoldBalance[tokenOwner] = 0, "Tokens already claimed");
-        zGoldClaimed[tokenOwner] == true;
+        zGoldClaimed[tokenOwner] = true;
+        zGoldBalance[tokenOwner] = ZGoldPerToken;
         _mint(tokenOwner, ZGoldPerToken);
     }
 }

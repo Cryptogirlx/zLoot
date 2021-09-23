@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/cryptogirl/LinumLabs/zLoot/chain/contracts/ZGold.sol": {
-      "lastModificationDate": 1632413680575,
-      "contentHash": "72b8d70ce15aaff052fe3591ee97d5e2",
+      "lastModificationDate": 1632419679516,
+      "contentHash": "bd67778a7dff7d52cc0dd1a807a6dbbb",
       "sourceName": "contracts/ZGold.sol",
       "solcConfig": {
         "version": "0.8.0",
