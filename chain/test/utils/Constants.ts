@@ -11,6 +11,9 @@ export const constants = {
     DEPLOY: {
         name: "zLoot",
         symbol:"ZLT"
+    },
+    ERC:{
+        ZGoldPerToken:1000
     }
 }
 

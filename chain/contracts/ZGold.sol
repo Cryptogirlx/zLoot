@@ -9,8 +9,9 @@ contract ZGold is Context, Ownable, ERC20 {
     address public ZLootContractAddress;
     IZLoot public ZLootContract;
     IERC721Enumerable public Ownership;
-    uint256 public ZGoldPerToken = 1000 * (10**decimals());
+    uint256 public ZGoldPerToken = 1000;
 
+    uint256 _totalSupply = 600000;
     mapping(address => uint256) public zGoldBalance;
 
     mapping(address => bool) public zGoldClaimed;
@@ -19,6 +20,10 @@ contract ZGold is Context, Ownable, ERC20 {
         ZLootContractAddress = _ZLootContractAddress;
         ZLootContract = IZLoot(ZLootContractAddress);
         Ownership = IERC721Enumerable(ZLootContractAddress);
+    }
+
+    function totalSupply() public view override returns (uint256) {
+        return _totalSupply;
     }
 
     function getZGLDBalance(address tokenOwner) public view returns (uint256) {
@@ -31,7 +36,6 @@ contract ZGold is Context, Ownable, ERC20 {
 
     function claimGold(uint256 tokenId, address tokenOwner) public {
         // has to check if address is owner of token
-
         require(
             _msgSender() == Ownership.ownerOf(tokenId),
             "Must own ZLoot token to claim gold"
@@ -40,10 +44,10 @@ contract ZGold is Context, Ownable, ERC20 {
         require(tokenId <= 600, "Invalid token ID");
         // check that they haven't claim the gold yet
         require(zGoldClaimed[tokenOwner] == false, "Can only claim gold once");
-        _claim(tokenOwner, ZGoldPerToken);
+        _claim(tokenId, tokenOwner);
     }
 
-    function _claim(address tokenOwner, uint256 amount) internal {
+    function _claim(uint256 tokenId, address tokenOwner) public {
         // address cannot claim twice
         // require(zGoldBalance[tokenOwner] = 0, "Tokens already claimed");
         zGoldClaimed[tokenOwner] == true;
