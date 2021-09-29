@@ -35,14 +35,12 @@ describe("Deployment", () => {
         it('reverts if address is trying to claim more than one token ', async () => {
             await ZLootInstance.connect(owner).claim(
                 constants.NFT.tokenId1,
-                ethers.utils.parseUnits("1", "ether"),
                  {
                      value: ethers.utils.parseUnits("1", "ether")
                  }
                );
                await expect( ZLootInstance.connect(owner).claim(
                 constants.NFT.tokenId2,
-                ethers.utils.parseUnits("1", "ether"),
                  {
                      value: ethers.utils.parseUnits("1", "ether")
                  }
@@ -53,7 +51,6 @@ describe("Deployment", () => {
        
                await expect( ZLootInstance.connect(owner).claim(
                 constants.NFT.tokenId2,
-                ethers.utils.parseUnits("0.1", "ether"),
                  {
                      value: ethers.utils.parseUnits("0.1", "ether")
                  }
@@ -63,7 +60,6 @@ describe("Deployment", () => {
         it('total supply of tokens cannot be more than 600', async () => {
             await expect( ZLootInstance.connect(owner).claim(
                 601,
-                ethers.utils.parseUnits("1", "ether"),
                  {
                      value: ethers.utils.parseUnits("1", "ether")
                  }
@@ -75,14 +71,12 @@ describe("Deployment", () => {
         it('each address can only claim a different token', async () => {
             await ZLootInstance.connect(owner).claim(
                 constants.NFT.tokenId1,
-                ethers.utils.parseUnits("1", "ether"),
                  {
                      value: ethers.utils.parseUnits("1", "ether")
                  }
                );
                await ZLootInstance.connect(alice).claim(
                 constants.NFT.tokenId2,
-                ethers.utils.parseUnits("1", "ether"),
                  {
                      value: ethers.utils.parseUnits("1", "ether")
                  }

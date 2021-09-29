@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/cryptogirl/LinumLabs/zLoot/chain/contracts/ZGold.sol": {
-      "lastModificationDate": 1632419679516,
-      "contentHash": "bd67778a7dff7d52cc0dd1a807a6dbbb",
+      "lastModificationDate": 1632919300574,
+      "contentHash": "1a5c6dd64e330a655f65dfe09b079933",
       "sourceName": "contracts/ZGold.sol",
       "solcConfig": {
         "version": "0.8.0",
@@ -42,8 +42,8 @@
       ]
     },
     "/Users/cryptogirl/LinumLabs/zLoot/chain/contracts/ZLoot.sol": {
-      "lastModificationDate": 1632399151759,
-      "contentHash": "ff601a9f4764fbb80a4a1394ae372447",
+      "lastModificationDate": 1632902769933,
+      "contentHash": "596c947d54963e1f0716089f97c38c54",
       "sourceName": "contracts/ZLoot.sol",
       "solcConfig": {
         "version": "0.8.0",

@@ -50,7 +50,7 @@ describe("Deployment", () => {
             let actualResult,expectedResult
             await ZLootInstance.connect(owner).claim(
                 constants.NFT.tokenId1,
-                ethers.utils.parseUnits("1", "ether"),
+               
                  {
                      value: ethers.utils.parseUnits("1", "ether")
                  }
@@ -66,7 +66,7 @@ describe("Deployment", () => {
             let actualResult,expectedResult
             await ZLootInstance.connect(owner).claim(
                 constants.NFT.tokenId1,
-                ethers.utils.parseUnits("1", "ether"),
+               
                  {
                      value: ethers.utils.parseUnits("1", "ether")
                  }
@@ -84,7 +84,7 @@ describe("Deployment", () => {
             let actualResult,expectedResult
             await ZLootInstance.connect(owner).claim(
                 constants.NFT.tokenId1,
-                ethers.utils.parseUnits("1", "ether"),
+               
                  {
                      value: ethers.utils.parseUnits("1", "ether")
                  }
@@ -100,7 +100,7 @@ describe("Deployment", () => {
             let actualResult,expectedResult
             await ZLootInstance.connect(owner).claim(
                 constants.NFT.tokenId1,
-                ethers.utils.parseUnits("1", "ether"),
+               
                  {
                      value: ethers.utils.parseUnits("1", "ether")
                  }
@@ -120,7 +120,7 @@ describe("Deployment", () => {
             let actualResult,expectedResult
             await ZLootInstance.connect(owner).claim(
                 constants.NFT.tokenId1,
-                ethers.utils.parseUnits("1", "ether"),
+               
                  {
                      value: ethers.utils.parseUnits("1", "ether")
                  }

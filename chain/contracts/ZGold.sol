@@ -14,7 +14,8 @@ contract ZGold is Context, Ownable, ERC20 {
     uint256 _totalSupply = 600000;
     mapping(address => uint256) public zGoldBalance;
 
-    mapping(address => bool) public zGoldClaimed;
+    mapping(address => bool) public zGoldClaimedByAddress; // gold claimed by address
+    mapping(uint256 => bool) public zGoldClaimedByNFT; // gold claimed by NFT
 
     constructor(address _ZLootContractAddress) public ERC20("ZGold", "ZGLD") {
         ZLootContractAddress = _ZLootContractAddress;
@@ -30,8 +31,16 @@ contract ZGold is Context, Ownable, ERC20 {
         return zGoldBalance[tokenOwner];
     }
 
-    function isZGLDClaimed(address tokenOwner) public view returns (bool) {
-        return zGoldClaimed[tokenOwner];
+    function isZGLDClaimedByAddress(address tokenOwner)
+        public
+        view
+        returns (bool)
+    {
+        return zGoldClaimedByAddress[tokenOwner];
+    }
+
+    function isZGLDClaimedByNFT(uint256 tokenId) public view returns (bool) {
+        return zGoldClaimedByNFT[tokenId];
     }
 
     function claimGold(uint256 tokenId, address tokenOwner) public {
@@ -44,12 +53,20 @@ contract ZGold is Context, Ownable, ERC20 {
         );
 
         // check that they haven't claim the gold yet
-        require(zGoldClaimed[tokenOwner] == false, "Can only claim gold once");
+        require(
+            zGoldClaimedByAddress[tokenOwner] == false,
+            "Can only claim gold once"
+        );
+        require(
+            zGoldClaimedByNFT[tokenId] == false,
+            " Can only claim gold once"
+        );
         _claim(tokenId, tokenOwner);
     }
 
-    function _claim(uint256 tokenId, address tokenOwner) public {
-        zGoldClaimed[tokenOwner] = true;
+    function _claim(uint256 tokenId, address tokenOwner) internal {
+        zGoldClaimedByAddress[tokenOwner] = true;
+        zGoldClaimedByNFT[tokenId] = true;
         zGoldBalance[tokenOwner] = ZGoldPerToken;
         _mint(tokenOwner, ZGoldPerToken);
     }

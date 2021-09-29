@@ -38,7 +38,7 @@
     "test:zloot": "hardhat test test/2_zLoot.test.ts ",
     "test:nft": "hardhat test test/1_NftBasics.test.ts ",
     "test:random": "hardhat test test/2_Randomness.test.ts ",
-    "test:claim": "hardhat test test/3_ClaimNFT.test.ts ",
+    "test:claimnft": "hardhat test test/3_ClaimNFT.test.ts ",
     "test:erc": "hardhat test test/5_zGold_basics.test.ts ",
     "test:claim": "hardhat test test/4_zGold_claim.test.ts ",
     "compile": "hardhat compile",

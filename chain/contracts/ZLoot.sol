@@ -325,7 +325,7 @@ contract ZLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
                     abi.encodePacked(
                         '{"name": "Bag #',
                         toString(tokenId),
-                        '", "description": "zLoot is randomized adventurer gear generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use Loot in any way you want.", "image": "data:image/svg+xml;base64,',
+                        '", "description": "zLoot is randomized adventurer gear generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use zLoot in any way you want.", "image": "data:image/svg+xml;base64,',
                         Base64.encode(bytes(output)),
                         '"}'
                     )
@@ -339,12 +339,7 @@ contract ZLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         return output;
     }
 
-    function claim(uint256 tokenId, uint256 minPrice)
-        public
-        payable
-        virtual
-        nonReentrant
-    {
+    function claim(uint256 tokenId) public payable virtual nonReentrant {
         // address can only mint one time
         require(
             balanceOf(msg.sender) == 0,

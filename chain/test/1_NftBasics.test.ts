@@ -45,7 +45,7 @@ describe("Deployment", () => {
         it("ownerOf returns the owner's address", async () => {
           await ZLootInstance.connect(owner).claim(
             constants.NFT.tokenId1,
-            ethers.utils.parseUnits("1", "ether"),
+
              {
                  value: ethers.utils.parseUnits("1", "ether")
              }
@@ -62,7 +62,7 @@ describe("Deployment", () => {
         
           await ZLootInstance.connect(owner).claim(
             constants.NFT.tokenId1,
-            ethers.utils.parseUnits("1", "ether"),
+
              {
                  value: ethers.utils.parseUnits("1", "ether")
              }
@@ -86,7 +86,6 @@ describe("Deployment", () => {
       it("transfer should revert transfer if item is not owned by account", async () => {
         await ZLootInstance.connect(owner).claim(
           constants.NFT.tokenId1,
-          ethers.utils.parseUnits("1", "ether"),
            {
                value: ethers.utils.parseUnits("1", "ether")
            }
@@ -100,7 +99,7 @@ describe("Deployment", () => {
         
           await ZLootInstance.connect(owner).claim(
             constants.NFT.tokenId1,
-            ethers.utils.parseUnits("1", "ether"),
+
              {
                  value: ethers.utils.parseUnits("1", "ether")
              }
@@ -113,7 +112,7 @@ describe("Deployment", () => {
         it("transfer reverts when givenconstants.NFT.tokenId1does not exist", async () => {
           await ZLootInstance.connect(owner).claim(
             constants.NFT.tokenId1,
-            ethers.utils.parseUnits("1", "ether"),
+
              {
                  value: ethers.utils.parseUnits("1", "ether")
              }
@@ -127,7 +126,7 @@ describe("Deployment", () => {
 
           await ZLootInstance.connect(owner).claim(
            constants.NFT.tokenId1,
-           ethers.utils.parseUnits("1", "ether"),
+
             {
                 value: ethers.utils.parseUnits("1", "ether")
             }
@@ -143,7 +142,7 @@ describe("Deployment", () => {
           const recipientAddress = await recipient.getAddress();
           await ZLootInstance.connect(owner).claim(
             constants.NFT.tokenId1,
-            ethers.utils.parseUnits("1", "ether"),
+
              {
                  value: ethers.utils.parseUnits("1", "ether")
              }
@@ -162,7 +161,7 @@ describe("Deployment", () => {
         it("transfer adjusts owner balances", async () => {
           await ZLootInstance.connect(owner).claim(
             constants.NFT.tokenId1,
-            ethers.utils.parseUnits("1", "ether"),
+
              {
                  value: ethers.utils.parseUnits("1", "ether")
              }
@@ -174,7 +173,7 @@ describe("Deployment", () => {
         it("transferFrom",async () => {
           await ZLootInstance.connect(owner).claim(
             constants.NFT.tokenId1,
-            ethers.utils.parseUnits("1", "ether"),
+
              {
                  value: ethers.utils.parseUnits("1", "ether")
              }
