@@ -59,7 +59,7 @@ describe("Deployment", () => {
               expect (await ZGoldInstance.balanceOf(aliceAddress)).to.equal(BigNumber.from("980"));
             });
          
-          it.only('increases the balance of the reciever after transfer', async () => {
+          it('increases the balance of the reciever after transfer', async () => {
             await ZLootInstance.connect(alice).claim(
                 constants.NFT.tokenId1,
                 ethers.utils.parseUnits("1", "ether"),
@@ -82,7 +82,7 @@ describe("Deployment", () => {
             expect(await ZGoldInstance.allowance(ownerAddress,aliceAddress)).to.equal(100);
    })
 
-   it('emits Trasfer properly', async () => {
+   it.only('emits Trasfer properly', async () => {
     await ZLootInstance.connect(alice).claim(
         constants.NFT.tokenId1,
         ethers.utils.parseUnits("1", "ether"),
@@ -92,13 +92,27 @@ describe("Deployment", () => {
        );
       await ZGoldInstance.connect(alice).claimGold(constants.NFT.tokenId1,aliceAddress);
       await ZGoldInstance.connect(alice).transfer(bobAddress,20);
-    await expect(
-        ZGoldInstance.connect(alice).transfer(bobAddress,20)).to.emit(ZGoldContract, "Transfer").withArgs(aliceAddress,bobAddress,20);
+      console.log("mistake")
+      await expect(
+        ZGoldInstance
+          .connect(alice)
+          .transfer(bobAddress,100)).to.emit(ZGoldInstance, "Transfer")
+        .withArgs(aliceAddress,bobAddress,100);
+
     });
 it('emits Approval properly', async () => {
-    expect ( await ZGoldInstance.connect(owner).approve(aliceAddress,100))
+    await ZLootInstance.connect(alice).claim(
+        constants.NFT.tokenId1,
+        ethers.utils.parseUnits("1", "ether"),
+         {
+             value: ethers.utils.parseUnits("1", "ether")
+         }
+       );
+      await ZGoldInstance.connect(alice).claimGold(constants.NFT.tokenId1,aliceAddress);
+      await ZGoldInstance.connect(alice).transfer(bobAddress,20);
+    expect ( await ZGoldInstance.connect(bob).approve(bobAddress,20))
     .to.emit(ZGoldContract, "Approval")
-    .withArgs(ownerAddress, aliceAddress,100)
+    .withArgs(aliceAddress, bobAddress,100)
 });
     })
 })
