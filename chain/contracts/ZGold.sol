@@ -49,8 +49,6 @@ contract ZGold is Context, Ownable, ERC20 {
     }
 
     function claimGold(uint256 tokenId, address tokenOwner) public {
-        // check for valid token ID
-        // require(tokenId <= 600, "Invalid token ID"); ==> is this necesarry if only the already minted tokens have ids?
         // has to check if address is owner of token
         require(
             _msgSender() == Ownership.ownerOf(tokenId),

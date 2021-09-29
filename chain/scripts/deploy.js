@@ -88,9 +88,11 @@ async function main() {
   //      example: await deploy("Token", [], {}, { "SafeMath": "0x..."});
   //    - function calls: use this format: `token.contact.mint()`
 
-  const zLoot = await deploy("ZLoot");
-  const zGold = await deploy("ZGold");
-  contracts.push(zLoot, zGold); // includes details for verification
+  // const zLoot = await deploy("ZLoot");
+  const zGold = await deploy("ZGold", [
+    "0x10d7A01618625C8eA1B11f50e55A2C25235E3c19",
+  ]);
+  contracts.push(zGold); // includes details for verification
   // includes details for verification
 
   // === VERIFICATION ===

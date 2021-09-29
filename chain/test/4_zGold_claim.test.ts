@@ -85,7 +85,7 @@ describe("Deployment", () => {
   
           });
 
-          it.only('emits GoldClaimed event after claim', async () => {
+          it('emits GoldClaimed event after claim', async () => {
             await ZLootInstance.connect(alice).claim(
                 constants.NFT.tokenId1,
           
