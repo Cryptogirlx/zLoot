@@ -4,7 +4,7 @@ zLoot is a collection limited to 10 000 unique NFts part of an expendable RPG un
 Users can only mint one NFT per account.
 Each loot bag contains items: a piece for an adventurer's companion,special power,hand armor,ring, and weapon.
 The game includes a zGLD ERC20 token that represents Gold.
-If a user owns a zLOOT NFT, they are eligible claim 10 000 zGLD one time.
+If a user owns a zLOOT NFT, they are eligible claim 1000 zGLD one time.
 
 ## Contracts
 
@@ -21,7 +21,8 @@ This application uses
 
 ## Latest smart contracts depolyed on Rinkeby
 
-- ZLoot: 0xBA6ad4a2794B82876984FdDFA9CAE6A66249FfC8
+- ZLoot: 0x10d7A01618625C8eA1B11f50e55A2C25235E3c19
+- ZGold:0xd045f170115c6F3b4B951cb9Ccf7826Dae131f83
 
 ## Faucets
 
