@@ -110,9 +110,12 @@ it('emits Approval properly', async () => {
        );
       await ZGoldInstance.connect(alice).claimGold(constants.NFT.tokenId1,aliceAddress);
       await ZGoldInstance.connect(alice).transfer(bobAddress,20);
-     await expect (ZGoldInstance.connect(alice).approve(bobAddress,20))
-    .to.emit(ZGoldContract, "Approval")
-    .withArgs(aliceAddress, bobAddress,100)
+      await expect(
+        ZGoldInstance
+          .connect(alice)
+          .approve(bobAddress,20)).to.emit(ZGoldInstance, "Approval")
+        .withArgs(aliceAddress,bobAddress,20);
+
+    });
 });
     })
-})

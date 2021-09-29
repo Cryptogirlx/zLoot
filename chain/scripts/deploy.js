@@ -89,8 +89,8 @@ async function main() {
   //    - function calls: use this format: `token.contact.mint()`
 
   const zLoot = await deploy("ZLoot");
-
-  contracts.push(zLoot); // includes details for verification
+  const zGold = await deploy("ZGold");
+  contracts.push(zLoot, zGold); // includes details for verification
   // includes details for verification
 
   // === VERIFICATION ===

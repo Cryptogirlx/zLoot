@@ -12,10 +12,15 @@ contract ZGold is Context, Ownable, ERC20 {
     uint256 public ZGoldPerToken = 1000;
 
     uint256 _totalSupply = 600000;
+    // * MAPPINGS * //
     mapping(address => uint256) public zGoldBalance;
 
     mapping(address => bool) public zGoldClaimedByAddress; // gold claimed by address
     mapping(uint256 => bool) public zGoldClaimedByNFT; // gold claimed by NFT
+
+    // * EVENTS * //
+
+    event GoldClaimed(address tokenOwner, uint256 tokenId, uint256 amount);
 
     constructor(address _ZLootContractAddress) public ERC20("ZGold", "ZGLD") {
         ZLootContractAddress = _ZLootContractAddress;
@@ -62,6 +67,7 @@ contract ZGold is Context, Ownable, ERC20 {
             " Can only claim gold once"
         );
         _claim(tokenId, tokenOwner);
+       emit GoldClaimed(tokenOwner,tokenId,ZGoldPerToken)
     }
 
     function _claim(uint256 tokenId, address tokenOwner) internal {
