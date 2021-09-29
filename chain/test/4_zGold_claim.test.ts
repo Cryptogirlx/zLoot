@@ -70,6 +70,39 @@ describe("Deployment", () => {
                 await ZGoldInstance.connect(alice).claimGold(constants.NFT.tokenId1,aliceAddress);
                 await expect(ZGoldInstance.connect(alice).claimGold(constants.NFT.tokenId1,aliceAddress)).to.be.revertedWith("Can only claim gold once")
         })
+
+        it('returns balance of an account correctly after claiming', async () => {
+            
+            await ZLootInstance.connect(alice).claim(
+                constants.NFT.tokenId1,
+    
+                 {
+                     value: ethers.utils.parseUnits("1", "ether")
+                 }
+               );
+               await ZGoldInstance.connect(alice).claimGold(constants.NFT.tokenId1,aliceAddress);
+            expect (await ZGoldInstance.getZGLDBalance(aliceAddress)).to.equal(constants.ERC.ZGoldPerToken);
+  
+          });
+
+          it.only('emits GoldClaimed event after claim', async () => {
+            await ZLootInstance.connect(alice).claim(
+                constants.NFT.tokenId1,
+          
+                 {
+                     value: ethers.utils.parseUnits("1", "ether")
+                 }
+               );
+              await expect(
+                ZGoldInstance
+                  .connect(alice)
+                  .claimGold(constants.NFT.tokenId1,aliceAddress)).to.emit(ZGoldInstance, "GoldClaimed")
+                .withArgs(constants.NFT.tokenId1,aliceAddress);
+          })
+
+          // * TESTING internal _claim * //
+
+
         // it('sets zGoldClaimed to true after claiming gold', async () => {
         //                // first mint NFT
         //                await ZLootInstance.connect(alice).claim(
@@ -85,19 +118,7 @@ describe("Deployment", () => {
 
    
         // });
-        it('returns balance of an account correctly after claiming', async () => {
-            
-            await ZLootInstance.connect(alice).claim(
-                constants.NFT.tokenId1,
-    
-                 {
-                     value: ethers.utils.parseUnits("1", "ether")
-                 }
-               );
-               await ZGoldInstance.connect(alice).claimGold(constants.NFT.tokenId1,aliceAddress);
-            expect (await ZGoldInstance.getZGLDBalance(aliceAddress)).to.equal(constants.ERC.ZGoldPerToken);
-  
-          });
+        
 
         //   it('can only claim gold once per NFT', async () => {
         //     await ZLootInstance.connect(alice).claim(
